@@ -78,8 +78,8 @@ def merge_on_subject_admission(table1, table2):
 def add_age_to_icustays(stays):
     stays['INTIME'] = pd.to_datetime(stays['INTIME']).dt.date
     stays['DOB'] = pd.to_datetime(stays['DOB']).dt.date
-    stays['AGE'] = stays.apply(lambda e: (e['INTIME'] - e['DOB']).days/365, axis=1)
-    stays.iloc[stays.AGE < 0, 'AGE'] = 90
+    stays['AGE'] = stays.apply(lambda e: (e['INTIME'] - e['DOB']).days // 365, axis=1)
+    # stays.iloc[stays.AGE < 0, 'AGE'] = 90
     return stays
 
 
