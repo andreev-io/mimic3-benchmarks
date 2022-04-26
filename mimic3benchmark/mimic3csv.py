@@ -151,8 +151,8 @@ def break_up_diagnoses_by_subject(diagnoses, output_path, subjects=None):
 def read_events_table_and_break_up_by_subject(mimic3_path, table, output_path,
                                               items_to_keep=None, subjects_to_keep=None):
     obs_header = ['SUBJECT_ID', 'HADM_ID', 'ICUSTAY_ID', 'CHARTTIME', 'ITEMID', 'VALUE', 'VALUEUOM']
-    if items_to_keep is not None:
-        items_to_keep = set([str(s) for s in items_to_keep])
+    # if items_to_keep is not None:
+        # items_to_keep = set([str(s) for s in items_to_keep])
     if subjects_to_keep is not None:
         subjects_to_keep = set([str(s) for s in subjects_to_keep])
 
@@ -186,8 +186,8 @@ def read_events_table_and_break_up_by_subject(mimic3_path, table, output_path,
 
         if (subjects_to_keep is not None) and (row['SUBJECT_ID'] not in subjects_to_keep):
             continue
-        if (items_to_keep is not None) and (row['ITEMID'] not in items_to_keep):
-            continue
+        # if (items_to_keep is not None) and (row['ITEMID'] not in items_to_keep):
+            # continue
 
         row_out = {'SUBJECT_ID': row['SUBJECT_ID'],
                    'HADM_ID': row['HADM_ID'],

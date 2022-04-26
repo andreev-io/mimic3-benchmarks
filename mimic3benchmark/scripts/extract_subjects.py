@@ -75,8 +75,9 @@ if args.test:
 subjects = stays.SUBJECT_ID.unique()
 break_up_stays_by_subject(stays, args.output_path, subjects=subjects)
 break_up_diagnoses_by_subject(phenotypes, args.output_path, subjects=subjects)
-items_to_keep = set(
-    [int(itemid) for itemid in dataframe_from_csv(args.itemids_file)['ITEMID'].unique()]) if args.itemids_file else None
+# items_to_keep = set(
+    # [int(itemid) for itemid in dataframe_from_csv(args.itemids_file)['ITEMID'].unique()]) if args.itemids_file else None
+items_to_keep = None
 for table in args.event_tables:
     read_events_table_and_break_up_by_subject(args.mimic3_path, table, args.output_path, items_to_keep=items_to_keep,
                                               subjects_to_keep=subjects)
