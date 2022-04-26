@@ -12,6 +12,7 @@ from mimic3benchmark.util import dataframe_from_csv
 
 def read_patients_table(mimic3_path):
     pats = dataframe_from_csv(os.path.join(mimic3_path, 'PATIENTS.csv'))
+    pats.columns = map(str.upper, pats.columns)
     pats = pats[['SUBJECT_ID', 'GENDER', 'DOB', 'DOD']]
     pats.DOB = pd.to_datetime(pats.DOB)
     pats.DOD = pd.to_datetime(pats.DOD)
@@ -20,6 +21,7 @@ def read_patients_table(mimic3_path):
 
 def read_admissions_table(mimic3_path):
     admits = dataframe_from_csv(os.path.join(mimic3_path, 'ADMISSIONS.csv'))
+    admits.columns = map(str.upper, admits.columns)
     admits = admits[['SUBJECT_ID', 'HADM_ID', 'ADMITTIME', 'DISCHTIME', 'DEATHTIME', 'ETHNICITY', 'DIAGNOSIS']]
     admits.ADMITTIME = pd.to_datetime(admits.ADMITTIME)
     admits.DISCHTIME = pd.to_datetime(admits.DISCHTIME)
@@ -29,6 +31,7 @@ def read_admissions_table(mimic3_path):
 
 def read_icustays_table(mimic3_path):
     stays = dataframe_from_csv(os.path.join(mimic3_path, 'ICUSTAYS.csv'))
+    stays.columns = map(str.upper, stays.columns)
     stays.INTIME = pd.to_datetime(stays.INTIME)
     stays.OUTTIME = pd.to_datetime(stays.OUTTIME)
     return stays
@@ -36,8 +39,10 @@ def read_icustays_table(mimic3_path):
 
 def read_icd_diagnoses_table(mimic3_path):
     codes = dataframe_from_csv(os.path.join(mimic3_path, 'D_ICD_DIAGNOSES.csv'))
+    codes.columns = map(str.upper, codes.columns)
     codes = codes[['ICD9_CODE', 'SHORT_TITLE', 'LONG_TITLE']]
     diagnoses = dataframe_from_csv(os.path.join(mimic3_path, 'DIAGNOSES_ICD.csv'))
+    diagnoses.columns = map(str.upper, diagnoses.columns)
     diagnoses = diagnoses.merge(codes, how='inner', left_on='ICD9_CODE', right_on='ICD9_CODE')
     diagnoses[['SUBJECT_ID', 'HADM_ID', 'SEQ_NUM']] = diagnoses[['SUBJECT_ID', 'HADM_ID', 'SEQ_NUM']].astype(int)
     return diagnoses
